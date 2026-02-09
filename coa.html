@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COA Form | DENR-PENRO System</title>
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/coa.css" />
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="./assets/images/denrlogo.jpg" alt="DENR-PENRO Logo" />
+      </div>
+      <div class="hamburger" id="hamburger">☰</div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="data.html">Data</a></li>
+        <li><a href="depreciation.html">Depreciation Data</a></li>
+        <li><a href="coa.html" class="active">COA Form</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Page Title -->
+  <main class="coa-page">
+    <h1>Commission on Audit (COA) Form</h1>
+
+    <!-- Search Bar -->
+    <div class="coa-search">
+      <input type="text" id="coaSearchBar" placeholder="Search property name...">
+    </div>
+
+    <!-- Dummy Records List -->
+    <table id="recordsTable">
+      <thead>
+        <tr>
+          <th>Property</th>
+          <th>PPE Class</th>
+          <th>Account Code</th>
+          <th>Date Acquired</th>
+          <th>Cost</th>
+          <th>Residual</th>
+          <th>Useful Life</th>
+          <th>Annual Dep</th>
+          <th>Acc. Dep</th>
+          <th>NBV</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="recordsBody">
+        <!-- Records injected by JS -->
+      </tbody>
+    </table>
+  </main>
+
+  <!-- COA Modal -->
+  <div id="coaModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeCoaModal">&times;</span>
+      <h2>Commission on Audit (COA) Form</h2>
+      <form id="coaForm">
+        <table class="coa-table">
+          <tr><th>Property</th><td><input type="text" id="coaProperty" readonly /></td></tr>
+          <tr><th>PPE Class</th><td><input type="text" id="coaPpeClass" readonly /></td></tr>
+          <tr><th>Account Code</th><td><input type="text" id="coaAccountCode" readonly /></td></tr>
+          <tr><th>Date Acquired</th><td><input type="date" id="coaDateAcquired" readonly /></td></tr>
+          <tr><th>Cost</th><td><input type="number" id="coaCost" readonly /></td></tr>
+          <tr><th>Residual</th><td><input type="number" id="coaResidual" readonly /></td></tr>
+          <tr><th>Useful Life</th><td><input type="number" id="coaUsefulLife" readonly /></td></tr>
+          <tr><th>Annual Dep</th><td><input type="number" id="coaAnnualDep" readonly /></td></tr>
+          <tr><th>Acc. Dep</th><td><input type="number" id="coaAccDep" readonly /></td></tr>
+          <tr><th>NBV</th><td><input type="number" id="coaNBV" readonly /></td></tr>
+        </table>
+
+        <!-- Signature Section -->
+        <div class="coa-signatures">
+          <div>
+            <label>Prepared by:</label>
+            <input type="text" id="preparedBy" placeholder="Type name here...">
+          </div>
+          <div>
+            <label>Verified by:</label>
+            <input type="text" id="verifiedBy" placeholder="Type name here...">
+          </div>
+          <div>
+            <label>Approved by:</label>
+            <input type="text" id="approvedBy" placeholder="Type name here...">
+          </div>
+        </div>
+
+        <button type="button" id="exportBtn">Export to PDF</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="./src/coa.js"></script>
+</body>
+</html>

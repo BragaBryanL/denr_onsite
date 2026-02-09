@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data | DENR-PENRO System</title>
+  <!-- Global + Page-specific CSS -->
+  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="./css/data.css" />
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="./assets/images/denrlogo.jpg" alt="DENR-PENRO Logo" />
+      </div>
+      <div class="hamburger" id="hamburger">☰</div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="data.html" class="active">Data</a></li>
+        <li><a href="depreciation.html">Depreciation Data</a></li>
+        <li><a href="coa.html">COA Form</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Main Layout: Reference + Form + Chart -->
+  <main class="data-layout">
+    
+    <!-- Quick Reference Panel -->
+    <aside class="reference-panel">
+      <h2>Quick Reference</h2>
+      <ul>
+        <li><strong>Residual Value:</strong> usually 5% of cost</li>
+        <li><strong>Depreciable Amount:</strong> Cost − Residual Value</li>
+        <li><strong>Annual Depreciation:</strong> Depreciable ÷ Useful Life</li>
+        <li><strong>Net Book Value:</strong> Cost − Accumulated Depreciation</li>
+      </ul>
+      <h3>PPE Class Useful Life</h3>
+      <ul>
+        <li>ICT Equipment → 5 years</li>
+        <li>Motor Vehicles → 7 years</li>
+        <li>Buildings → 20 years</li>
+        <li>Office Equipment → 10 years</li>
+      </ul>
+    </aside>
+
+    <!-- Depreciation Form (center) -->
+    <section class="form-container">
+  <h1>Depreciation Schedule Form</h1>
+  <form id="depreciationForm">
+    <!-- Manual Inputs -->
+    <label>Property:</label>
+    <input type="text" id="property" required />
+
+    <label>Place/Office:</label>
+    <select id="place" required>
+      <option value="">-- Select Place/Office --</option>
+      <option value="Balatukan Gingoog">Balatukan Gingoog</option>
+      <option value="ILPLS">ILPLS</option>
+      <option value="Initao">Initao</option>
+      <option value="Mimbilisan">Mimbilisan</option>
+      <option value="PENRO">PENRO</option>
+      <option value="INREMP">INREMP</option>
+    </select>
+
+    <label>Property Description:</label>
+    <input type="text" id="description" placeholder="e.g., DSLR Camera with Tripod and Carry Bag" required />
+
+    <label>PPE Class:</label>
+    <select id="ppeClass" required>
+      <option value="">-- Select PPE Class --</option>
+      <option value="Land">Land</option>
+      <option value="Land Improvements">Land Improvements</option>
+      <option value="Reforestation Projects">Reforestation Projects</option>
+      <option value="Other Land Improvements">Other Land Improvements</option>
+      <option value="Water Supply Systems">Water Supply Systems</option>
+      <option value="Power Supply Systems">Power Supply Systems</option>
+      <option value="Buildings">Buildings</option>
+      <option value="Other Structures">Other Structures</option>
+      <option value="Office Equipment">Office Equipment</option>
+      <option value="Information and Communication Technology Equipment">Information and Communication Technology Equipment</option>
+      <option value="Community Equipment">Community Equipment</option>
+      <option value="Technical and Scientific Equipment">Technical and Scientific Equipment</option>
+      <option value="Motor Vehicles">Motor Vehicles</option>
+      <option value="Furniture and Fixtures">Furniture and Fixtures</option>
+      <option value="Construction in Progress - Land Improvements">Construction in Progress - Land Improvements</option>
+      <option value="Construction in Progress - Buildings and other Structures">Construction in Progress - Buildings and other Structures</option>
+      <option value="Disaster Response and Rescue Equipment">Disaster Response and Rescue Equipment</option>
+    </select>
+
+    <!-- Auto-generated fields -->
+    <label>Account Code (Auto):</label>
+    <input type="text" id="accountCode" readonly />
+
+    <label>Date Acquired:</label>
+    <input type="date" id="dateAcquired" required />
+
+    <label>Cost:</label>
+    <input type="number" id="cost" required />
+
+    <label>Residual Value (Auto):</label>
+    <input type="number" id="residualValue" readonly />
+
+    <label>Useful Life (Years, Auto):</label>
+    <input type="number" id="usefulLife" readonly />
+
+    <label>Depreciable Amount (Auto):</label>
+    <input type="number" id="depreciableAmount" readonly />
+
+    <label>Annual Depreciation (Auto):</label>
+    <input type="number" id="annualDep" readonly />
+
+    <label>Accumulated Depreciation (Auto):</label>
+    <input type="number" id="accDep" readonly />
+
+    <label>Net Book Value (Auto):</label>
+    <input type="number" id="netBookValue" readonly />
+
+    <label>Remarks:</label>
+    <textarea id="remarks"></textarea>
+
+    <button type="submit">Save</button>
+    <button type="button" id="clearBtn">Clear</button>
+  </form>
+</section>
+
+    <!-- Timeline Chart (right) -->
+    <aside class="timeline-chart">
+      <h2>Depreciation Timeline</h2>
+      <canvas id="timelineChart"></canvas>
+    </aside>
+  </main>
+
+  <!-- Page-specific JS -->
+  <script type="module" src="./src/data.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | DENR-PENRO System</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="./assets/images/denrlogo.jpg" alt="DENR-PENRO Logo" />
+      </div>
+      <div class="hamburger" id="hamburger">☰</div>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="data.html">Data</a></li>
+        <li><a href="depreciation.html">Depreciation Data</a></li>
+        <li><a href="coa.html">COA Form</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Dashboard Content -->
+  <main class="dashboard">
+    <h1>Dashboard Overview</h1>
+    <div class="cards">
+      <div class="card">
+        <h2>Total Records</h2>
+        <p id="totalRecords">0</p>
+      </div>
+      <div class="card">
+        <h2>Pending Approvals</h2>
+        <p id="pendingApprovals">0</p>
+      </div>
+      <div class="card">
+        <h2>Depreciation Items</h2>
+        <p id="depreciationItems">0</p>
+      </div>
+      <div class="card">
+        <h2>COA Forms Generated</h2>
+        <p id="coaForms">0</p>
+      </div>
+    </div>
+
+    <!-- Graphs Container -->
+    <section class="graphs-container">
+      <div class="graph-section">
+        <h2>Records Overview</h2>
+        <canvas id="recordsChart"></canvas>
+      </div>
+
+      <div class="graph-section">
+        <h2>Monthly Trends</h2>
+        <canvas id="trendsChart"></canvas>
+      </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="recent">
+      <h2>Recent Activity</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>User</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="activityBody">
+          <!-- Empty for now, will be populated dynamically -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

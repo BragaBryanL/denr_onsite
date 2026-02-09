@@ -1,0 +1,190 @@
+/* Reset */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* ensures footer stays at bottom */
+}
+
+/* Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #006400;
+  padding: 1rem 2rem;
+}
+.logo img {
+  height: 50px;
+  width: auto;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+}
+.nav-links a:hover {
+  background: #228B22;
+}
+.nav-links a.active {
+  background: #fff;
+  color: #006400;
+  font-weight: bold;
+}
+
+/* Hamburger (hidden on desktop) */
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #006400;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 200px;
+    padding: 1rem;
+  }
+  .nav-links.show {
+    display: flex;
+  }
+  .hamburger {
+    display: block;
+  }
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  flex: 1; /* pushes footer down */
+}
+.hero h1 {
+  color: #006400;
+  font-size: 2.5rem;
+}
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+.hero button {
+  background: #006400;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.hero button:hover {
+  background: #228B22;
+}
+
+
+
+/* Dashboard Layout */
+.dashboard {
+  padding: 2rem;
+}
+
+.dashboard h1 {
+  color: #006400;
+  margin-bottom: 1.5rem;
+}
+
+/* Cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.card h2 {
+  margin-bottom: 0.5rem;
+  color: #006400;
+}
+.card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Recent Activity Table */
+.recent table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+.recent th, .recent td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+.recent th {
+  background: #006400;
+  color: #fff;
+}
+.recent tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+/* Graphs Container */
+.graphs-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin: 2rem auto;
+  flex-wrap: wrap; /* allows stacking on small screens */
+}
+
+.graph-section {
+  flex: 1;                /* each takes equal space */
+  min-width: 300px;       /* prevents shrinking too small */
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.graph-section h2 {
+  color: #006400;
+  margin-bottom: 1rem;
+}
+
+.graph-section canvas {
+  width: 100% !important;
+  height: 300px !important;
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 768px) {
+  .graphs-container {
+    flex-direction: column;
+  }
+}
