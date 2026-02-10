@@ -129,6 +129,18 @@ form.addEventListener("submit", async (e) => {
 
     if (res.ok) {
       alert("Record saved successfully!");
+      
+      // Fetch all records from API and update localStorage
+      try {
+        const allRes = await fetch("http://localhost:3000/assets");
+        if (allRes.ok) {
+          const allRecords = await allRes.json();
+          localStorage.setItem("depreciationRecords", JSON.stringify(allRecords));
+        }
+      } catch (err) {
+        console.warn("Could not sync to localStorage:", err);
+      }
+      
       form.reset();
 
       // clear auto-calculated fields

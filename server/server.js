@@ -1,6 +1,8 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
 const cors = require('cors');
+const fs = require('fs');
 
 const app = express();
 const PORT = 3000;
@@ -9,8 +11,32 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from parent directory
+const staticDir = path.resolve(__dirname, '..');
+console.log('Static directory:', staticDir);
+
+app.use(express.static(staticDir, { index: ['index.html'] }));
+
+// Explicit home route
+app.get('/', (req, res) => {
+  const indexPath = path.join(staticDir, 'index.html');
+  console.log('Serving index.html from:', indexPath);
+  res.sendFile(indexPath);
+});
+
+// Debug route
+app.get('/debug', (req, res) => {
+  res.json({ 
+    staticDir, 
+    __dirname,
+    cwd: process.cwd(),
+    filesInRoot: fs.readdirSync(staticDir).slice(0, 20)
+  });
+});
+
 // Connect to SQLite (creates file if not exists)
-const db = new sqlite3.Database('./assets.db');
+const dbPath = path.join(__dirname, 'assets.db');
+const db = new sqlite3.Database(dbPath);
 
 // Create table if not exists
 db.run(`CREATE TABLE IF NOT EXISTS assets (
@@ -29,6 +55,11 @@ db.run(`CREATE TABLE IF NOT EXISTS assets (
   netBookValue REAL,
   remarks TEXT
 )`);
+
+// Alter table to add coaGenerated column if it doesn't exist
+db.run(`ALTER TABLE assets ADD COLUMN coaGenerated INTEGER DEFAULT 0`, (err) => {
+  // Ignore error if column already exists
+});
 
 // =======================
 // CRUD Endpoints
@@ -98,7 +129,7 @@ app.get('/dashboard-stats', (req, res) => {
       db.get('SELECT COUNT(*) AS depreciationItems FROM assets WHERE usefulLife IS NOT NULL', (err, row2) => {
         if (err) return res.status(500).json({ error: err.message });
 
-        db.get('SELECT COUNT(*) AS coaForms FROM assets WHERE accDep IS NOT NULL', (err, row3) => {
+        db.get('SELECT COUNT(*) AS coaForms FROM assets WHERE coaGenerated = 1', (err, row3) => {
           if (err) return res.status(500).json({ error: err.message });
 
           res.json({
@@ -113,21 +144,47 @@ app.get('/dashboard-stats', (req, res) => {
   });
 });
 
+// Mark COA as generated
+app.put('/assets/:id/mark-coa', (req, res) => {
+  const id = req.params.id;
+  db.run(
+    'UPDATE assets SET coaGenerated = 1 WHERE id = ?',
+    [id],
+    function(err) {
+      if (err) return res.status(500).json({ error: err.message });
+      res.json({ success: true, updated: this.changes });
+    }
+  );
+});
+
 // Recent activity (last 10 records)
 app.get('/recent-activity', (req, res) => {
   db.all(
-    'SELECT dateAcquired AS date, property AS user, "Added record" AS action FROM assets ORDER BY dateAcquired DESC LIMIT 10',
+    'SELECT id, dateAcquired AS date, COALESCE(property, "Unknown") AS property, "Added record" AS action FROM assets ORDER BY dateAcquired DESC LIMIT 10',
     [],
     (err, rows) => {
       if (err) return res.status(500).json({ error: err.message });
+      console.log('Recent activity rows:', rows);
       res.json(rows);
     }
   );
 });
 
+// Debug all assets
+app.get('/api/all-assets-debug', (req, res) => {
+  db.all('SELECT * FROM assets', [], (err, rows) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(rows);
+  });
+});
 // =======================
 // Start Server
 // =======================
+app.use((req, res) => {
+  res.status(404).send('Not Found: ' + req.url);
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Serving static files from: ${path.resolve(__dirname, '..')}`);
 });
