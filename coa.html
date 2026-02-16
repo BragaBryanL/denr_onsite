@@ -33,7 +33,13 @@
       <input type="text" id="coaSearchBar" placeholder="Search property name...">
     </div>
 
-    <!-- Dummy Records List -->
+    <!-- Template Upload -->
+    <div class="coa-template-upload">
+      <label for="coaTemplate">Upload COA Excel Format:</label>
+      <input type="file" id="coaTemplate" accept=".xlsx,.xls">
+    </div>
+
+    <!-- Records List -->
     <table id="recordsTable">
       <thead>
         <tr>
@@ -91,11 +97,13 @@
           </div>
         </div>
 
-        <button type="button" id="exportBtn">Export to PDF</button>
+        <button type="button" id="exportBtn">Export to Excel</button>
       </form>
     </div>
   </div>
 
+  <!-- SheetJS for Excel handling -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="./src/coa.js"></script>
 </body>
 </html>
